@@ -1,9 +1,8 @@
 import preprocessScript from "./preprocessScript";
 import requestApi from "./requestApi";
 
-const getLinks = async (script, setLinks, quality = "", noVideos = 3) => {
-  //   const keywords = preprocessScript(script);
-  const keywords = ["teacher"];
+const getLinks = async (script, quality = "_720p", noVideos = 3) => {
+  const keywords = preprocessScript(script);
 
   for (let i = 0; i < keywords.length; i++) {
     const apiRes = await requestApi(keywords[i]);
@@ -20,7 +19,7 @@ const getLinks = async (script, setLinks, quality = "", noVideos = 3) => {
       const listItem = document.createElement("li");
       const anc = document.createElement("a");
 
-      anc.href = apiRes.results[i]["preview_urls"]["_720p"];
+      anc.href = apiRes.results[i]["preview_urls"][quality];
       anc.innerHTML = `Link ${i + 1}`;
       anc.target = "_blank";
 

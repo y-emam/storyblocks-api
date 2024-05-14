@@ -3,7 +3,6 @@ import getLinks from "../../services/getLinks";
 import "./Home.css";
 
 const Home = () => {
-  const [links, setLinks] = useState(<h1>Some Testing</h1>);
   const getVideos = (event) => {
     event.preventDefault();
 
@@ -19,7 +18,7 @@ const Home = () => {
   that began to steal the joy from my days. [joyless teacher]
   `;
 
-    getLinks(scriptInput, setLinks);
+    getLinks(scriptInput);
   };
   return (
     <div>
