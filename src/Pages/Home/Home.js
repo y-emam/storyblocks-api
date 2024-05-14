@@ -1,10 +1,21 @@
+import getLinks from "../../services/getLinks";
 import "./Home.css";
 
 const Home = () => {
   const getVideos = () => {
-    const scriptInput = document.getElementById("script-input").value;
+    // todo: uncomment these line
+    // const scriptInput = document.getElementById("script-input").value;
+    // const qualityVideo = '720p';
+    // const noVideos = 3;
 
-    alert(scriptInput);
+    const scriptInput = `
+    However, as the weeks turned into months, [time passing rapidly]
+the tingling gradually intensified, [increasing tingling sensation]
+evolving into a constant, unrelenting numbness [numb feet close-up]
+that began to steal the joy from my days. [joyless teacher]
+`;
+
+    getLinks(scriptInput);
   };
   return (
     <div>
