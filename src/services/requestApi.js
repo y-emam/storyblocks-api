@@ -21,26 +21,17 @@ const requestApi = async (keyword) => {
     const hmac = CryptoJS.HmacSHA256(pathname, privateKey + expires).toString(
       CryptoJS.enc.Hex
     );
+    const res = await axios.get(
+      `${url}?project_id=${projectId}&user_id=${userId}&keywords=${keyword}&APIKEY=${publicKey}&HMAC=${hmac}&EXPIRES=${expires}`
+    );
+    if (res.status === 200) {
+      const jsonData = res.data;
+      console.log(jsonData);
 
-    // const response = await fetch(
-    //   //   `${url}?project_id=${projectId}&user_id=${userId}&keywords=${keyword}&APIKEY=${publicKey}&HMAC=${hmac}&EXPIRES=${expires}`
-    //   `https://api.videoblocks.com/api/v2/videos/search?project_id=Test&user_id=YasserEmam&keywords=good%20teacher&APIKEY=test_4a0b684b4cb41e8e007f52f7427da6af8c7f4cd67874cc451966669d31c&HMAC=385b99a14ba2bdef75f739e96e4dc249b336a93fb7e313542176a322ca22bdd6&EXPIRES=1715739528`
-    // );
-    // const response = await fetch("https://dummyjson.com/products/1");
-    axios
-      .get(
-        `https://api.videoblocks.com/api/v2/videos/search?project_id=Test&user_id=YasserEmam&keywords=good%20teacher&APIKEY=test_4a0b684b4cb41e8e007f52f7427da6af8c7f4cd67874cc451966669d31c&HMAC=385b99a14ba2bdef75f739e96e4dc249b336a93fb7e313542176a322ca22bdd6&EXPIRES=1715739528`
-      )
-      .then((res) => {
-        alert(res.data["total_results"]);
-      });
-    // alert(response.status);
-    // if (!response.ok) {
-    //   throw new Error("Network response was not ok");
-    // }
-    // const jsonData = await response.json();
-    // console.log(jsonData);
-    // return jsonData;
+      return jsonData;
+    } else {
+      console.log(`Error Requesitng the APi`);
+    }
   } catch (error) {
     console.log(`Error requesting API: ${error.message}`);
   }
