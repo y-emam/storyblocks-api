@@ -7,13 +7,8 @@ const Home = () => {
 
     document.getElementById("links-textarea").innerHTML = "";
 
-    const scriptInput = `
-      However, as the weeks turned into months, [time passing rapidly]
-  the tingling gradually intensified, [increasing tingling sensation]
-  evolving into a constant, unrelenting numbness [numb feet close-up]
-  that began to steal the joy from my days. [joyless teacher]
-  lkadjflksdfjadslkfjdsaklfj. [hiker on scenic trail]
-  `;
+    // todo: uncomment these line
+    const scriptInput = document.getElementById("script-input").value;
 
     getLinks(scriptInput);
   };
