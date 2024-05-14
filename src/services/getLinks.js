@@ -16,15 +16,17 @@ const getLinks = async (script, quality = "_720p", noVideos = 3) => {
     const links = document.createElement("ul");
 
     for (let i = 0; i < noVideos; i++) {
-      const listItem = document.createElement("li");
-      const anc = document.createElement("a");
+      if (i < apiRes["total_results"]) {
+        const listItem = document.createElement("li");
+        const anc = document.createElement("a");
 
-      anc.href = apiRes.results[i]["preview_urls"][quality];
-      anc.innerHTML = `Link ${i + 1}`;
-      anc.target = "_blank";
+        anc.href = apiRes.results[i]["preview_urls"][quality];
+        anc.innerHTML = `Link ${i + 1}`;
+        anc.target = "_blank";
 
-      listItem.appendChild(anc);
-      links.appendChild(listItem);
+        listItem.appendChild(anc);
+        links.appendChild(listItem);
+      }
     }
 
     snippt.appendChild(links);
