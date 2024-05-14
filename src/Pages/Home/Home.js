@@ -7,7 +7,6 @@ const Home = () => {
 
     document.getElementById("links-textarea").innerHTML = "";
 
-    // todo: uncomment these line
     const scriptInput = document.getElementById("script-input").value;
 
     getLinks(scriptInput);
