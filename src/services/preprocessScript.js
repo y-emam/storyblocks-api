@@ -5,11 +5,17 @@ const preprocessScript = (script) => {
   const wordsToRemoveArr = ["animation", "video"];
 
   for (let i = 1; i < sentences.length; i++) {
-    let word = sentences[i].trim().split("]")[0];
+    let words = sentences[i].trim().split("]")[0].split(" ");
 
-    if (!wordsToRemoveArr.includes(word.toLowerCase())) {
-      keywords.push(word);
+    let temp = [];
+
+    for (let i = 0; i < words.length; i++) {
+      if (!wordsToRemoveArr.includes(words[i].toLowerCase())) {
+        temp.push(words[i]);
+      }
     }
+
+    keywords.push(temp.join(" "));
   }
 
   return keywords;
