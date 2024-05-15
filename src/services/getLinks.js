@@ -5,7 +5,19 @@ const getLinks = async (script, quality = "_720p", noVideos = 3) => {
   const keywords = preprocessScript(script);
 
   for (let i = 0; i < keywords.length; i++) {
-    const apiRes = await requestApi(keywords[i]);
+    let apiRes;
+
+    while (keywords[i].split(" ").length > 0) {
+      apiRes = await requestApi(keywords[i]);
+
+      if (apiRes["total_results"] > 0) {
+        break;
+      }
+
+      const words = keywords[i].split(" ").slice(1, keywords.length);
+
+      keywords[i] = words.join(" ").trim();
+    }
 
     const snippt = document.createElement("li");
 

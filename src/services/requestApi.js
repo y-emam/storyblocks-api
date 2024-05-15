@@ -21,12 +21,12 @@ const requestApi = async (keyword) => {
     const hmac = CryptoJS.HmacSHA256(pathname, privateKey + expires).toString(
       CryptoJS.enc.Hex
     );
+
     const res = await axios.get(
       `${url}?project_id=${projectId}&user_id=${userId}&keywords=${keyword}&APIKEY=${publicKey}&HMAC=${hmac}&EXPIRES=${expires}`
     );
     if (res.status === 200) {
       const jsonData = res.data;
-      console.log(jsonData);
 
       return jsonData;
     } else {

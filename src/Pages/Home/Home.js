@@ -17,7 +17,11 @@ const Home = () => {
       <form onSubmit={getVideos}>
         <label>
           Enter Your Script:
-          <textarea id="script-input" />
+          <textarea
+            id="script-input"
+            required
+            placeholder="Enter Your Script Here."
+          />
         </label>
         <input type="submit" />
       </form>
