@@ -2,7 +2,6 @@ import getLinks from "../../services/getLinks";
 import "./Home.css";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
-import { useEffect } from "react";
 import { useState } from "react";
 
 const Home = () => {
@@ -43,7 +42,9 @@ const Home = () => {
     for (let i = 0; i < hiddenLinks.length; i++) {
       await downloadFile(
         hiddenLinks[i].href,
-        `${hiddenLinks[i].innerHTML}/${hiddenLinks[i].innerHTML}${i + 1}.mp4`
+        `videos/${hiddenLinks[i].innerHTML}/${hiddenLinks[i].innerHTML}${
+          i + 1
+        }.mp4`
       );
     }
 
