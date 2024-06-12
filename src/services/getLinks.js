@@ -1,5 +1,5 @@
 import preprocessScript from "./preprocessScript";
-import requestApi from "./requestApi";
+import requestPexelsApi from "./requestPexelsApi";
 
 const getLinks = async (script, quality = "_720p", noVideos = 3) => {
   const keywords = preprocessScript(script);
@@ -8,7 +8,7 @@ const getLinks = async (script, quality = "_720p", noVideos = 3) => {
     let apiRes;
 
     while (keywords[i].split(" ").length > 0) {
-      apiRes = await requestApi(keywords[i]);
+      apiRes = await requestPexelsApi(keywords[i], noVideos);
 
       if (apiRes["total_results"] > 0) {
         break;
@@ -32,7 +32,17 @@ const getLinks = async (script, quality = "_720p", noVideos = 3) => {
         const listItem = document.createElement("li");
         const anc = document.createElement("a");
 
-        anc.href = apiRes.results[i]["preview_urls"][quality];
+        let autoDownloadLink = apiRes.videos[i]["video_files"].filter(
+          (video) => video["quality"] === "hd"
+        )[0]["link"];
+
+        if (!autoDownloadLink) {
+          autoDownloadLink =
+            apiRes.videos[i]["video_files"][0]["quality"]["link"];
+        }
+
+        anc.href = apiRes.videos[i]["url"];
+        // anc.href = autoDownloadLink;
         anc.innerHTML = `Link ${i + 1}`;
         anc.target = "_blank";
 

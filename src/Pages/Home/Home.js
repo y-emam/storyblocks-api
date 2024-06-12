@@ -11,6 +11,7 @@ const Home = () => {
 
     getLinks(scriptInput);
   };
+
   return (
     <div>
       <h1>StoryBlocks API</h1>
@@ -26,6 +27,7 @@ const Home = () => {
         <input type="submit" />
       </form>
       <ul id="links-textarea"></ul>
+      <button>Download All Links</button>
     </div>
   );
 };

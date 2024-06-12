@@ -10,7 +10,7 @@ const credentials = {
 };
 const AUTH_EXPIRY_SECONDS = 12 * 60 * 60; // 12 hours
 
-const requestApi = async (keyword) => {
+const requestStoryblocksApi = async (keyword) => {
   try {
     const url = `https://api.videoblocks.com/api/v2/videos/search`;
     const { pathname } = new URL(url);
@@ -37,4 +37,4 @@ const requestApi = async (keyword) => {
   }
 };
 
-export default requestApi;
+export default requestStoryblocksApi;
