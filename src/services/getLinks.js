@@ -1,7 +1,7 @@
 import preprocessScript from "./preprocessScript";
 import requestPexelsApi from "./requestPexelsApi";
 
-const getLinks = async (script, quality = "_720p", noVideos = 3) => {
+const getLinks = async (script, quality = "_720p", noVideos = 5) => {
   const keywords = preprocessScript(script);
 
   for (let i = 0; i < keywords.length; i++) {
