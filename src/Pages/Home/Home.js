@@ -12,6 +12,14 @@ const Home = () => {
     getLinks(scriptInput);
   };
 
+  const downloadAllVideos = async () => {
+    const hiddenLinks = document.getElementById("hidden-links").children;
+
+    for (let i = 0; i < hiddenLinks.length; i++) {
+      window.open(hiddenLinks[i].href);
+    }
+  };
+
   return (
     <div>
       <h1>StoryBlocks API</h1>
@@ -27,7 +35,10 @@ const Home = () => {
         <input type="submit" />
       </form>
       <ul id="links-textarea"></ul>
-      <button className="download-all">Download All Links</button>
+      <div id="hidden-links" hidden={true}></div>
+      <button className="download-all" onClick={downloadAllVideos}>
+        Download All Links
+      </button>
     </div>
   );
 };

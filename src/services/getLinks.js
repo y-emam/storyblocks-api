@@ -27,27 +27,36 @@ const getLinks = async (script, quality = "_720p", noVideos = 3) => {
 
     const links = document.createElement("ul");
 
-    for (let i = 0; i < noVideos; i++) {
-      if (i < apiRes["total_results"]) {
+    for (let j = 0; j < noVideos; j++) {
+      if (j < apiRes["total_results"]) {
         const listItem = document.createElement("li");
         const anc = document.createElement("a");
 
-        let autoDownloadLink = apiRes.videos[i]["video_files"].filter(
+        anc.href = apiRes.videos[j]["url"];
+        anc.innerHTML = `Link ${j + 1}`;
+        anc.target = "_blank";
+
+        listItem.appendChild(anc);
+        links.appendChild(listItem);
+
+        // hidden links for download all
+        let autoDownloadLink = apiRes.videos[j]["video_files"].filter(
           (video) => video["quality"] === "hd"
         )[0]["link"];
 
         if (!autoDownloadLink) {
           autoDownloadLink =
-            apiRes.videos[i]["video_files"][0]["quality"]["link"];
+            apiRes.videos[j]["video_files"][0]["quality"]["link"];
         }
 
-        anc.href = apiRes.videos[i]["url"];
-        // anc.href = autoDownloadLink;
-        anc.innerHTML = `Link ${i + 1}`;
-        anc.target = "_blank";
+        const hiddenDiv = document.getElementById("hidden-links");
 
-        listItem.appendChild(anc);
-        links.appendChild(listItem);
+        const hiddenLink = document.createElement("a");
+        hiddenLink.href = autoDownloadLink;
+        hiddenLink.download = `video.mp4`;
+        hiddenLink.hidden = true;
+
+        hiddenDiv.appendChild(hiddenLink);
       }
     }
 
