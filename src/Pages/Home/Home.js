@@ -27,7 +27,7 @@ const Home = () => {
         <input type="submit" />
       </form>
       <ul id="links-textarea"></ul>
-      <button>Download All Links</button>
+      <button className="download-all">Download All Links</button>
     </div>
   );
 };
