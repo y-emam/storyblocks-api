@@ -53,7 +53,7 @@ const getLinks = async (script, quality = "_720p", noVideos = 5) => {
 
         const hiddenLink = document.createElement("a");
         hiddenLink.href = autoDownloadLink;
-        hiddenLink.download = `video.mp4`;
+        hiddenLink.innerHTML = keywords[i];
         hiddenLink.hidden = true;
 
         hiddenDiv.appendChild(hiddenLink);

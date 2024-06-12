@@ -1,5 +1,3 @@
-import axios from "axios";
-import fs from "fs";
 import getLinks from "../../services/getLinks";
 import "./Home.css";
 
@@ -17,37 +15,24 @@ const Home = () => {
   const downloadAllVideos = async () => {
     const hiddenLinks = document.getElementById("hidden-links").children;
 
-    axios({
-      url: hiddenLinks[0].href,
-      method: "GET",
-      responseType: "stream", // Important: responseType must be 'stream' to handle binary files
-    })
-      .then((response) => {
-        // Create a writable stream and pipe the response data to it
-        const writer = fs.createWriteStream("video.mp4");
-        response.data.pipe(writer);
+    for (let i = 0; i < hiddenLinks.length; i++) {
+      fetch(hiddenLinks[i].href)
+        .then((response) => response.blob())
+        .then((blob) => {
+          const blobUrl = window.URL.createObjectURL(blob);
 
-        // Handle successful response
-        writer.on("finish", () => {
-          console.log("Video downloaded successfully");
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = blobUrl;
+          a.download = `${hiddenLinks[i].innerHTML}${i + 1}.mp4`;
+          document.body.appendChild(a);
+          a.click();
 
-          fs.rename("nature.mp4", "D:/Media/pexels/nature.mp4", (err) => {
-            if (err) {
-              console.error("Error moving file", err);
-            } else {
-              console.log("File saved to destination");
-            }
-          });
-        });
-
-        // Handle errors
-        writer.on("error", (err) => {
-          console.error("Error downloading video", err);
-        });
-      })
-      .catch((err) => {
-        console.error("Error downloading video", err);
-      });
+          window.URL.revokeObjectURL(blobUrl);
+          document.body.removeChild(a);
+        })
+        .catch((err) => console.error("Error downloading video", err));
+    }
   };
 
   return (
