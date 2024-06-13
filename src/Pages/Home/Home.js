@@ -20,25 +20,6 @@ const Home = () => {
   const downloadAllVideos = async () => {
     const hiddenLinks = document.getElementById("hidden-links").children;
 
-    // for (let i = 0; i < hiddenLinks.length; i++) {
-    //   fetch(hiddenLinks[i].href)
-    //     .then((response) => response.blob())
-    //     .then((blob) => {
-    //       const blobUrl = window.URL.createObjectURL(blob);
-
-    //       const a = document.createElement("a");
-    //       a.style.display = "none";
-    //       a.href = blobUrl;
-    //       a.download = `${hiddenLinks[i].innerHTML}${i + 1}.mp4`;
-    //       document.body.appendChild(a);
-    //       a.click();
-
-    //       window.URL.revokeObjectURL(blobUrl);
-    //       document.body.removeChild(a);
-    //     })
-    //     .catch((err) => console.error("Error downloading video", err));
-    // }
-
     for (let i = 0; i < hiddenLinks.length; i++) {
       await downloadFile(
         hiddenLinks[i].href,
