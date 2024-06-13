@@ -18,6 +18,11 @@ const Home = () => {
   };
 
   const downloadAllVideos = async () => {
+    const downloadAllButton = document.getElementById("download-all");
+    downloadAllButton.disabled = true;
+    downloadAllButton.innerHTML = "Loading...";
+    downloadAllButton.style.background = "grey";
+
     const hiddenLinks = document.getElementById("hidden-links").children;
 
     for (let i = 0; i < hiddenLinks.length; i++) {
@@ -30,6 +35,10 @@ const Home = () => {
     }
 
     createZip();
+
+    downloadAllButton.disabled = false;
+    downloadAllButton.innerHTML = "Download All Videos";
+    downloadAllButton.style.background = "#007bff";
   };
 
   const downloadFile = async (url, filename) => {
@@ -83,10 +92,7 @@ const Home = () => {
         </label>
         <input type="submit" />
       </form>
-      {/* <button className="download-all" onClick={createZip}>
-        Download All Links
-      </button> */}
-      <button className="download-all" onClick={downloadAllVideos}>
+      <button id="download-all" onClick={downloadAllVideos}>
         Download All Links
       </button>
       <ul id="links-textarea"></ul>
