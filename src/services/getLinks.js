@@ -1,14 +1,14 @@
 import preprocessScript from "./preprocessScript";
-import requestApi from "./requestApi";
+import requestPexelsApi from "./requestPexelsApi";
 
-const getLinks = async (script, quality = "_720p", noVideos = 3) => {
+const getLinks = async (script, quality = "_720p", noVideos = 5) => {
   const keywords = preprocessScript(script);
 
   for (let i = 0; i < keywords.length; i++) {
     let apiRes;
 
     while (keywords[i].split(" ").length > 0) {
-      apiRes = await requestApi(keywords[i]);
+      apiRes = await requestPexelsApi(keywords[i], noVideos);
 
       if (apiRes["total_results"] > 0) {
         break;
@@ -27,17 +27,36 @@ const getLinks = async (script, quality = "_720p", noVideos = 3) => {
 
     const links = document.createElement("ul");
 
-    for (let i = 0; i < noVideos; i++) {
-      if (i < apiRes["total_results"]) {
+    for (let j = 0; j < noVideos; j++) {
+      if (j < apiRes["total_results"]) {
         const listItem = document.createElement("li");
         const anc = document.createElement("a");
 
-        anc.href = apiRes.results[i]["preview_urls"][quality];
-        anc.innerHTML = `Link ${i + 1}`;
+        anc.href = apiRes.videos[j]["url"];
+        anc.innerHTML = `Link ${j + 1}`;
         anc.target = "_blank";
 
         listItem.appendChild(anc);
         links.appendChild(listItem);
+
+        // hidden links for download all
+        let autoDownloadLink = apiRes.videos[j]["video_files"].filter(
+          (video) => video["quality"] === "hd"
+        )[0]["link"];
+
+        if (!autoDownloadLink) {
+          autoDownloadLink =
+            apiRes.videos[j]["video_files"][0]["quality"]["link"];
+        }
+
+        const hiddenDiv = document.getElementById("hidden-links");
+
+        const hiddenLink = document.createElement("a");
+        hiddenLink.href = autoDownloadLink;
+        hiddenLink.innerHTML = keywords[i];
+        hiddenLink.hidden = true;
+
+        hiddenDiv.appendChild(hiddenLink);
       }
     }
 
