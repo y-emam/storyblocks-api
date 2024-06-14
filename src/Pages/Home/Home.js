@@ -14,7 +14,7 @@ const Home = () => {
 
     const scriptInput = document.getElementById("script-input").value;
 
-    getLinks(scriptInput, 3);
+    getLinks(scriptInput, 50);
   };
 
   const downloadAllVideos = async () => {

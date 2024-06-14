@@ -1,7 +1,7 @@
 import preprocessScript from "./preprocessScript";
 import requestPexelsApi from "./requestPexelsApi";
 
-const getLinks = async (script, noVideos = 5, quality = "_720p") => {
+const getLinks = async (script, noVideos = 50, quality = "_720p") => {
   const keywords = preprocessScript(script);
 
   for (let i = 0; i < keywords.length; i++) {
@@ -10,7 +10,7 @@ const getLinks = async (script, noVideos = 5, quality = "_720p") => {
     while (keywords[i].split(" ").length > 0) {
       apiRes = await requestPexelsApi(keywords[i], noVideos);
 
-      if (apiRes["total_results"] > 0) {
+      if (apiRes["total_results"] >= 0) {
         break;
       }
 
@@ -42,11 +42,13 @@ const getLinks = async (script, noVideos = 5, quality = "_720p") => {
         // hidden links for download all
         let autoDownloadLink = apiRes.videos[j]["video_files"].filter(
           (video) => video["quality"] === "hd"
-        )[0]["link"];
+        );
 
-        if (!autoDownloadLink) {
-          autoDownloadLink =
-            apiRes.videos[j]["video_files"][0]["quality"]["link"];
+        // if video quality not found, get the any quality
+        if (autoDownloadLink.length === 0) {
+          autoDownloadLink = apiRes.videos[j]["video_files"][0]["link"];
+        } else {
+          autoDownloadLink = autoDownloadLink[0]["link"];
         }
 
         const hiddenDiv = document.getElementById("hidden-links");
