@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
   useState(0);
-  const noVideos = 20;
+  const noVideos = 50;
 
   const getVideos = (event) => {
     event.preventDefault();
