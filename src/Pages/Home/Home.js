@@ -8,7 +8,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
   const [downloadedVideosPercent, setdownloadedVideosPercent] = useState(0);
-  const noVideos = 10;
+  const noVideos = 50;
 
   const getVideos = (event) => {
     event.preventDefault();
