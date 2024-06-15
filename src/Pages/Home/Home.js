@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 
 const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
+  useState(0);
+  const noVideos = 20;
 
   const getVideos = (event) => {
     event.preventDefault();
@@ -14,7 +16,7 @@ const Home = () => {
 
     const scriptInput = document.getElementById("script-input").value;
 
-    getLinks(scriptInput, 50);
+    getLinks(scriptInput, noVideos);
   };
 
   const downloadAllVideos = async () => {
@@ -27,19 +29,37 @@ const Home = () => {
 
     const newFolder = { files: {} };
 
+    let finished = 0;
+
+    let allFiles = [];
+
     for (let i = 0; i < hiddenLinks.length; i++) {
       const fileName = `videos/${hiddenLinks[i].innerHTML}/${
         hiddenLinks[i].innerHTML
       }${i + 1}.mp4`;
-      const fileBlob = await downloadFile(hiddenLinks[i].href);
-      newFolder.files = { ...newFolder.files, [fileName]: fileBlob };
+
+      allFiles.push(
+        downloadFile(hiddenLinks[i].href).then((fileBlob) => {
+          newFolder.files = { ...newFolder.files, [fileName]: fileBlob };
+
+          if (finished === noVideos) {
+            setFolder(newFolder);
+
+            downloadAllButton.disabled = false;
+            downloadAllButton.innerHTML = "Download All Videos";
+            downloadAllButton.style.background = "#007bff";
+          }
+        })
+      );
     }
 
-    setFolder(newFolder);
+    Promise.all(allFiles).then((results) => {
+      setFolder(newFolder);
 
-    downloadAllButton.disabled = false;
-    downloadAllButton.innerHTML = "Download All Videos";
-    downloadAllButton.style.background = "#007bff";
+      downloadAllButton.disabled = false;
+      downloadAllButton.innerHTML = "Download All Videos";
+      downloadAllButton.style.background = "#007bff";
+    });
   };
 
   const downloadFile = async (url) => {
@@ -54,7 +74,10 @@ const Home = () => {
       //     [filename]: fileBlob,
       //   },
       // }));
-      return fileBlob;
+
+      return new Promise((resolve) => {
+        resolve(fileBlob);
+      });
     } catch (error) {
       console.error("Error downloading file:", error);
     }
@@ -103,6 +126,8 @@ const Home = () => {
       <button id="download-all" onClick={downloadAllVideos}>
         Download All Links
       </button>
+      <div style={{ height: "3vh" }}></div>
+      {/* <ProgressBar bgColor="#0056b3" completed={downloadedVideosPercentage} /> */}
       <ul id="links-textarea"></ul>
       <div id="hidden-links" hidden={true}></div>
     </div>
