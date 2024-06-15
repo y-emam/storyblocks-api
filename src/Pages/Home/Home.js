@@ -3,10 +3,11 @@ import "./Home.css";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 import { useEffect, useState } from "react";
+import ProgressBar from "@ramonak/react-progress-bar";
 
 const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
-  useState(0);
+  const [downloadedVideosPercent, setdownloadedVideosPercent] = useState(0);
   const noVideos = 50;
 
   const getVideos = (event) => {
@@ -41,14 +42,6 @@ const Home = () => {
       allFiles.push(
         downloadFile(hiddenLinks[i].href).then((fileBlob) => {
           newFolder.files = { ...newFolder.files, [fileName]: fileBlob };
-
-          if (finished === noVideos) {
-            setFolder(newFolder);
-
-            downloadAllButton.disabled = false;
-            downloadAllButton.innerHTML = "Download All Videos";
-            downloadAllButton.style.background = "#007bff";
-          }
         })
       );
     }
@@ -66,14 +59,6 @@ const Home = () => {
     try {
       const response = await fetch(url);
       const fileBlob = await response.blob();
-
-      // Update the folder state with the downloaded file
-      // setFolder((prevFolder) => ({
-      //   files: {
-      //     ...prevFolder.files,
-      //     [filename]: fileBlob,
-      //   },
-      // }));
 
       return new Promise((resolve) => {
         resolve(fileBlob);
@@ -127,7 +112,7 @@ const Home = () => {
         Download All Links
       </button>
       <div style={{ height: "3vh" }}></div>
-      {/* <ProgressBar bgColor="#0056b3" completed={downloadedVideosPercentage} /> */}
+      <ProgressBar bgColor="#0056b3" completed={downloadedVideosPercent} />
       <ul id="links-textarea"></ul>
       <div id="hidden-links" hidden={true}></div>
     </div>
