@@ -30,8 +30,6 @@ const Home = () => {
 
     const newFolder = { files: {} };
 
-    let finished = 0;
-
     let allFiles = [];
 
     for (let i = 0; i < hiddenLinks.length; i++) {
