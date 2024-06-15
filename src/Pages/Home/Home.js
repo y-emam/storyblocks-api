@@ -8,7 +8,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
   const [downloadedVideosPercent, setdownloadedVideosPercent] = useState(0);
-  const noVideos = 50;
+  const noVideos = 10;
 
   const getVideos = (event) => {
     event.preventDefault();
@@ -29,9 +29,9 @@ const Home = () => {
     const hiddenLinks = document.getElementById("hidden-links").children;
 
     const newFolder = { files: {} };
+    const finished = { count: 0 };
 
-    let allFiles = [];
-
+    const allFiles = [];
     for (let i = 0; i < hiddenLinks.length; i++) {
       const fileName = `videos/${hiddenLinks[i].innerHTML}/${
         hiddenLinks[i].innerHTML
@@ -40,6 +40,10 @@ const Home = () => {
       allFiles.push(
         downloadFile(hiddenLinks[i].href).then((fileBlob) => {
           newFolder.files = { ...newFolder.files, [fileName]: fileBlob };
+
+          finished["count"]++;
+          const newPercent = Math.ceil((finished["count"] / noVideos) * 100);
+          setdownloadedVideosPercent(newPercent);
         })
       );
     }
