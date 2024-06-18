@@ -11,7 +11,7 @@ const requestPexelsApi = async (keyword, noVideos) => {
     };
 
     const url = encodeURI(
-      `https://api.pexels.com/videos/search?query=${keyword}&per_page=${noVideos}`
+      `https://api.pexels.com/videos/search?query=${keyword}&per_page=${noVideos}&orientation=portrait`
     );
 
     const res = await axios.get(url, config);
