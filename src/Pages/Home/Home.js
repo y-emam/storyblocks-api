@@ -8,16 +8,17 @@ import ProgressBar from "@ramonak/react-progress-bar";
 const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
   const [downloadedVideosPercent, setdownloadedVideosPercent] = useState(0);
+  const [keywordsLength, setkeywordsLength] = useState(1);
   const noVideos = 50;
 
-  const getVideos = (event) => {
+  const getVideos = async (event) => {
     event.preventDefault();
 
     document.getElementById("links-textarea").innerHTML = "";
 
     const scriptInput = document.getElementById("script-input").value;
 
-    getLinks(scriptInput, noVideos);
+    setkeywordsLength(await getLinks(scriptInput, noVideos));
   };
 
   const downloadAllVideos = async () => {
@@ -42,7 +43,9 @@ const Home = () => {
           newFolder.files = { ...newFolder.files, [fileName]: fileBlob };
 
           finished["count"]++;
-          const newPercent = Math.ceil((finished["count"] / noVideos) * 100);
+          const newPercent = Math.ceil(
+            (finished["count"] / (noVideos * keywordsLength)) * 100
+          );
           setdownloadedVideosPercent(newPercent);
         })
       );

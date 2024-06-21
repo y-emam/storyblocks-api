@@ -3,6 +3,7 @@ import requestPexelsApi from "./requestPexelsApi";
 
 const getLinks = async (script, noVideos = 50, quality = "_720p") => {
   const keywords = preprocessScript(script);
+  let keywordsLength = 0;
 
   for (let i = 0; i < keywords.length; i++) {
     let apiRes;
@@ -11,6 +12,7 @@ const getLinks = async (script, noVideos = 50, quality = "_720p") => {
       apiRes = await requestPexelsApi(keywords[i], noVideos);
 
       if (apiRes["total_results"] >= 0) {
+        keywordsLength++;
         break;
       }
 
@@ -66,6 +68,8 @@ const getLinks = async (script, noVideos = 50, quality = "_720p") => {
 
     document.getElementById("links-textarea").appendChild(snippt);
   }
+
+  return keywordsLength;
 };
 
 export default getLinks;
