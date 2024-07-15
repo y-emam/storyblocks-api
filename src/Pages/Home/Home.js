@@ -9,7 +9,7 @@ const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
   const [downloadedVideosPercent, setdownloadedVideosPercent] = useState(0);
   const [keywordsLength, setkeywordsLength] = useState(1);
-  const noVideos = 2;
+  const noVideos = 50;
 
   const getVideos = async (event) => {
     event.preventDefault();
