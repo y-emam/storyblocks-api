@@ -1,21 +1,36 @@
+.home-container {
+  /* centering all items to the midle */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 h1 {
   font-size: 36px;
   margin-bottom: 30px;
   color: #00ff00;
+  text-align: center;
 }
 
 /* Form styles */
 form {
   margin-bottom: 30px;
-  /* border: 1px solid #00ff00; */
+  width: 100%;
   color: #00ff00;
   background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 label {
   display: block;
   margin-bottom: 10px;
   font-size: 18px;
+  width: 100%;
+  max-width: 700px;
 }
 
 textarea {
@@ -27,10 +42,12 @@ textarea {
   font-size: 16px;
   background-color: #000;
   color: #0f0;
+  margin: 20px auto;
 }
 
 input[type="submit"],
 #download-all {
+  width: 300px;
   background-color: #00ff00;
   color: #000;
   border: none;
@@ -39,12 +56,17 @@ input[type="submit"],
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin: 0 auto;
 }
 
 /* List styles */
 ul {
   list-style: none;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 h3 {
@@ -61,11 +83,6 @@ a {
 
 a:hover {
   color: #0f0;
-}
-
-.progress-bar {
-  background-color: #0f0;
-  color: black;
 }
 
 button,

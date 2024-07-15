@@ -100,7 +100,7 @@ const Home = () => {
   }, [folder]);
 
   return (
-    <div>
+    <div className="home-container">
       <h1>Stock Video Assistance Bot - Pexels</h1>
       <form onSubmit={getVideos}>
         <label>
@@ -121,6 +121,8 @@ const Home = () => {
         bgColor="#0f0"
         labelColor="black"
         baseBgColor="#333"
+        width="700px"
+        margin="20px 0"
         completed={downloadedVideosPercent}
       />
       <ul id="links-textarea"></ul>
