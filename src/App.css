@@ -1,9 +1,11 @@
 .App {
-  font-family: Arial, sans-serif;
+  font-family: "Anonymous Pro", monospace;
+  font-weight: 400;
+  font-style: normal;
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f8f9fa;
+  background-color: #000;
   border-radius: 8px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
 }

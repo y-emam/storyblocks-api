@@ -9,7 +9,7 @@ const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
   const [downloadedVideosPercent, setdownloadedVideosPercent] = useState(0);
   const [keywordsLength, setkeywordsLength] = useState(1);
-  const noVideos = 50;
+  const noVideos = 2;
 
   const getVideos = async (event) => {
     event.preventDefault();
@@ -25,7 +25,7 @@ const Home = () => {
     const downloadAllButton = document.getElementById("download-all");
     downloadAllButton.disabled = true;
     downloadAllButton.innerHTML = "Loading...";
-    downloadAllButton.style.background = "grey";
+    downloadAllButton.style.background = "#20b340";
 
     const hiddenLinks = document.getElementById("hidden-links").children;
 
@@ -56,7 +56,7 @@ const Home = () => {
 
       downloadAllButton.disabled = false;
       downloadAllButton.innerHTML = "Download All Videos";
-      downloadAllButton.style.background = "#007bff";
+      downloadAllButton.style.background = "#0f0";
     });
   };
 
@@ -101,7 +101,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1>StoryBlocks API</h1>
+      <h1>Stock Video Assistance Bot - Pexels</h1>
       <form onSubmit={getVideos}>
         <label>
           Enter Your Script:
@@ -117,7 +117,12 @@ const Home = () => {
         Download All Links
       </button>
       <div style={{ height: "3vh" }}></div>
-      <ProgressBar bgColor="#0056b3" completed={downloadedVideosPercent} />
+      <ProgressBar
+        bgColor="#0f0"
+        labelColor="black"
+        baseBgColor="#333"
+        completed={downloadedVideosPercent}
+      />
       <ul id="links-textarea"></ul>
       <div id="hidden-links" hidden={true}></div>
     </div>
