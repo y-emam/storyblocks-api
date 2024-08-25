@@ -59,6 +59,35 @@ input[type="submit"],
   margin: 0 auto;
 }
 
+.label-field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.input-field {
+  width: 200px; /* Width of the dropdown */
+  padding: 8px; /* Padding inside the select box */
+  font-size: 16px; /* Font size */
+  color: #0f0; /* Text color */
+  background-color: #000; /* Background color */
+  border: 2px solid #0f0; /* Border style */
+  border-radius: 4px; /* Rounded corners */
+  appearance: none; /* Remove default arrow */
+  cursor: pointer; /* Change cursor to pointer */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.input-field:focus {
+  border-color: #0f0; /* Border color on focus */
+  outline: none; /* Remove outline on focus */
+}
+
+.input-field:focus {
+  border-color: #0f0; /* Border color on focus */
+}
+
 /* List styles */
 ul {
   list-style: none;

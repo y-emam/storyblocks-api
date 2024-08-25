@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const requestPexelsApi = async (keyword, noVideos) => {
+const requestPexelsApi = async (keyword, noVideos, videoOrientation) => {
   try {
     const apiKey = process.env.REACT_APP_API_KEY;
 
@@ -11,7 +11,7 @@ const requestPexelsApi = async (keyword, noVideos) => {
     };
 
     const url = encodeURI(
-      `https://api.pexels.com/videos/search?query=${keyword}&per_page=${noVideos}&orientation=portrait`
+      `https://api.pexels.com/videos/search?query=${keyword}&per_page=${noVideos}&orientation=${videoOrientation}`
     );
 
     const res = await axios.get(url, config);

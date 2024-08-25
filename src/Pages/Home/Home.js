@@ -9,7 +9,8 @@ const Home = () => {
   const [folder, setFolder] = useState({ files: {} });
   const [downloadedVideosPercent, setdownloadedVideosPercent] = useState(0);
   const [keywordsLength, setkeywordsLength] = useState(1);
-  const noVideos = 50;
+  const [noVideos, setNoVideos] = useState(1);
+  const [videoOrientation, setVideoOrientation] = useState("landscape");
 
   const getVideos = async (event) => {
     event.preventDefault();
@@ -18,7 +19,7 @@ const Home = () => {
 
     const scriptInput = document.getElementById("script-input").value;
 
-    setkeywordsLength(await getLinks(scriptInput, noVideos));
+    setkeywordsLength(await getLinks(scriptInput, noVideos, videoOrientation));
   };
 
   const downloadAllVideos = async () => {
@@ -111,6 +112,29 @@ const Home = () => {
             placeholder="Enter Your Script Here."
           />
         </label>
+        <label className="label-field">
+          Number of Videos:
+          <input
+            type="number"
+            className="input-field"
+            value={noVideos}
+            onChange={(event) => setNoVideos(event.target.value)}
+          />
+        </label>
+
+        <label className="label-field">
+          Video Orientation:
+          <select
+            type="number"
+            className="input-field"
+            value={videoOrientation}
+            onChange={(e) => setVideoOrientation(e.target.value)}
+          >
+            <option value="landscape">Landscape</option>
+            <option value="portrait">Portrait</option>
+          </select>
+        </label>
+        <br />
         <input type="submit" />
       </form>
       <button id="download-all" onClick={downloadAllVideos}>

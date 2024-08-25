@@ -1,7 +1,12 @@
 import preprocessScript from "./preprocessScript";
 import requestPexelsApi from "./requestPexelsApi";
 
-const getLinks = async (script, noVideos = 50, quality = "_720p") => {
+const getLinks = async (
+  script,
+  noVideos = 50,
+  videoOrientation,
+  quality = "_720p"
+) => {
   const keywords = preprocessScript(script);
   let keywordsLength = 0;
 
@@ -9,7 +14,7 @@ const getLinks = async (script, noVideos = 50, quality = "_720p") => {
     let apiRes;
 
     while (keywords[i].split(" ").length > 0) {
-      apiRes = await requestPexelsApi(keywords[i], noVideos);
+      apiRes = await requestPexelsApi(keywords[i], noVideos, videoOrientation);
 
       if (apiRes["total_results"] >= 0) {
         keywordsLength++;
